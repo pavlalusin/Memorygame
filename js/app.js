@@ -57,24 +57,17 @@ function startGame(){
 
     // shuffle deck
     cards = shuffle(cards);
-    var izbrane = []
-    for (var i = 0; i < 8; i++){
-        izbrane.push(cards[i]);
-        izbrane.push(cards[i].cloneNode());
-    }
-    izbrane = shuffle(izbrane)
     
     // remove all exisiting classes from each card
-    for (var i = 0; i < izbrane.length; i++){
-        izbrane[i].classList.remove("show", "open", "match", "disabled");
+    for (var i = 0; i < cards.length; i++){
+        cards[i].classList.remove("show", "open", "match", "disabled");
     }
     
     deck.innerHTML = "";
-    [].forEach.call(izbrane, function(item) {
+    [].forEach.call(cards, function(item) {
         deck.appendChild(item);
     });
     
-    setUpClicks(izbrane)
     // reset moves
     moves = 0;
     counter.innerHTML = moves;
@@ -136,7 +129,7 @@ function unmatched(){
         openedCards[1].classList.remove("show", "open", "no-event","unmatched");
         enable();
         openedCards = [];
-    },1100);
+    },900);
 }
 
 
@@ -239,12 +232,11 @@ function playAgain(){
     startGame();
 }
 
-function setUpClicks(izbrane){
-    // loop to add event listeners to each card
-    for (var i = 0; i < izbrane.length; i++){
-        card = izbrane[i];
-        card.addEventListener("click", displayCard);
-        card.addEventListener("click", cardOpen);
-        card.addEventListener("click",congratulations);
-    };
-}
+
+// loop to add event listeners to each card
+for (var i = 0; i < cards.length; i++){
+    card = cards[i];
+    card.addEventListener("click", displayCard);
+    card.addEventListener("click", cardOpen);
+    card.addEventListener("click",congratulations);
+};
